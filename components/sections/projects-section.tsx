@@ -10,9 +10,6 @@ import { projects } from "@/lib/projects-data";
 
 
 const N = projects.length;
-const CARD_W = 210;
-const CARD_H = 430;
-const RADIUS = Math.round((CARD_W * N) / (2 * Math.PI)) + 100; // ≈ 450px
 const SPEED = 360 / 36000; // full rotation in 36 seconds (deg/ms)
 
 export function ProjectsSection() {
@@ -21,6 +18,9 @@ export function ProjectsSection() {
   const angleRef = useRef(0);
   const lastTsRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
+  
+  // Responsive dimensions state
+  const [dims, setDims] = useState({ cardW: 210, cardH: 430, radius: 450 });
 
   // DOM refs for direct style manipulation (no re-renders)
   const ringRef = useRef<HTMLDivElement>(null);
@@ -29,6 +29,30 @@ export function ProjectsSection() {
   useEffect(() => {
     pausedRef.current = paused;
   }, [paused]);
+
+  // Adjust dimensions dynamically for responsiveness
+  useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w < 480) {
+        // Small mobile
+        setDims({ cardW: 130, cardH: 265, radius: 200 });
+      } else if (w < 768) {
+        // Mobile
+        setDims({ cardW: 165, cardH: 330, radius: 280 });
+      } else if (w < 1024) {
+        // Tablet
+        setDims({ cardW: 190, cardH: 390, radius: 380 });
+      } else {
+        // Desktop
+        setDims({ cardW: 210, cardH: 430, radius: 450 });
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const tick = (ts: number) => {
@@ -71,7 +95,7 @@ export function ProjectsSection() {
       {/* 3-D Circular Carousel */}
       <div
         className="relative mx-auto overflow-visible"
-        style={{ height: CARD_H + 140 }}
+        style={{ height: dims.cardH + 80 }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -99,12 +123,13 @@ export function ProjectsSection() {
                   key={project.id}
                   style={{
                     position: "absolute",
-                    width: CARD_W,
-                    height: CARD_H,
-                    left: -CARD_W / 2,
-                    top: -CARD_H / 2,
+                    width: dims.cardW,
+                    height: dims.cardH,
+                    left: -dims.cardW / 2,
+                    top: -dims.cardH / 2,
                     transformStyle: "preserve-3d",
-                    transform: `rotateY(${slotAngle}deg) translateZ(${RADIUS}px)`,
+                    transform: `rotateY(${slotAngle}deg) translateZ(${dims.radius}px)`,
+                    transition: "transform 0.5s ease-out", // smooth transition on resize
                   }}
                 >
                   {/* Counter-rotation wrapper — keeps card face-on */}
@@ -129,10 +154,11 @@ export function ProjectsSection() {
         <div
           className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
           style={{
-            width: RADIUS * 2 + CARD_W,
+            width: dims.radius * 2 + dims.cardW,
             height: 50,
             background:
               "radial-gradient(ellipse, rgba(255,107,53,0.14) 0%, transparent 70%)",
+            transition: "width 0.5s ease-out",
           }}
         />
 
@@ -154,36 +180,36 @@ function PhoneCard({ project }: { project: (typeof projects)[0] }) {
   return (
     <Link
       href={`/projects/${project.id}`}
-      className="w-full h-full flex flex-col rounded-[2rem] overflow-hidden border-2 cursor-pointer no-underline"
+      className="w-full h-full flex flex-col rounded-[1.2rem] sm:rounded-[2rem] overflow-hidden border-2 cursor-pointer no-underline"
       style={{
         background: "var(--card)",
         backdropFilter: "blur(12px)",
         borderColor: hovered ? project.color : "var(--border)",
         boxShadow: hovered
-          ? `0 0 40px ${project.color}44, 0 24px 60px rgba(0,0,0,0.15)`
-          : "0 10px 40px rgba(0,0,0,0.05)",
-        transform: hovered ? "scale(1.05) translateY(-8px)" : "scale(1)",
-        transition: "all 0.35s cubic-bezier(0.34,1.56,0.64,1)",
+          ? `0 0 45px ${project.color}35, 0 15px 45px rgba(0,0,0,0.15)`
+          : "0 10px 30px rgba(0,0,0,0.03)",
+        transform: hovered ? "scale(1.05) translateY(-5px)" : "scale(1)",
+        transition: "all 0.3s ease-out",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Notch bar */}
-      <div className="relative flex-shrink-0 h-6 flex items-center justify-center">
-        <div className="w-14 h-1 bg-foreground/10 rounded-full" />
+      <div className="relative flex-shrink-0 h-3 sm:h-6 flex items-center justify-center">
+        <div className="w-8 sm:w-14 h-0.5 sm:h-1 bg-foreground/10 rounded-full" />
       </div>
 
       {/* Screenshot */}
-      <div className="relative flex-shrink-0" style={{ height: 175 }}>
+      <div className="relative flex-shrink-0 h-24 sm:h-32 md:h-44">
         <Image src={project.image} alt={project.title} fill className="object-cover" />
         <div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(to bottom, ${project.color}15 0%, var(--background) 100%)`,
+            background: `linear-gradient(to bottom, ${project.color}10 0%, var(--background) 100%)`,
           }}
         />
         <span
-          className="absolute top-4 left-3 text-[9px] font-black px-2 py-0.5 rounded-full z-10"
+          className="absolute top-2 sm:top-4 left-2 sm:left-3 text-[7px] sm:text-[9px] font-black px-1.5 sm:px-2 py-0.5 rounded-full z-10"
           style={{ background: project.color, color: "#000" }}
         >
           {project.category}
@@ -191,58 +217,58 @@ function PhoneCard({ project }: { project: (typeof projects)[0] }) {
       </div>
 
       {/* Body */}
-      <div className="flex flex-col flex-1 p-4 gap-2">
+      <div className="flex flex-col flex-1 p-2 sm:p-4 gap-1 sm:gap-2">
         {/* ID + Type */}
         <div className="flex items-center justify-between">
           <span
-            className="text-[9px] font-bold tracking-widest border px-2 py-0.5 rounded-full"
+            className="text-[7px] sm:text-[9px] font-bold tracking-widest border px-1.5 sm:px-2 py-0.2 sm:py-0.5 rounded-full"
             style={{ color: project.color, borderColor: `${project.color}50` }}
           >
           {project.badge}
           </span>
-          <span className="text-[8px] text-muted-foreground tracking-wider font-mono">
-            TYPE // {project.type}
+          <span className="text-[7px] sm:text-[8px] text-muted-foreground tracking-wider font-mono">
+            {project.type}
           </span>
         </div>
 
         {/* Title */}
         <h3
-          className="text-sm font-black italic uppercase leading-tight transition-colors duration-300"
+          className="text-[11px] sm:text-sm font-black italic uppercase leading-tight transition-colors duration-300 line-clamp-1"
           style={{ color: hovered ? project.color : "var(--foreground)" }}
         >
           {project.title}
         </h3>
 
         {/* Description */}
-        <p className="text-[10px] text-muted-foreground leading-relaxed line-clamp-2 flex-1">
+        <p className="text-[8px] sm:text-[10px] text-muted-foreground leading-relaxed line-clamp-2 flex-1">
           {project.desc}
         </p>
 
         {/* Tech tags */}
-        <div className="flex flex-wrap gap-1">
-          {project.tech.slice(0, 3).map((t) => (
-            <span key={t} className="text-[8px] px-1.5 py-0.5 rounded bg-secondary text-muted-foreground border border-border font-mono">
+        <div className="hidden sm:flex flex-wrap gap-1">
+          {project.tech.slice(0, 2).map((t) => (
+            <span key={t} className="text-[7px] sm:text-[8px] px-1.5 py-0.5 rounded bg-secondary text-muted-foreground border border-border font-mono">
               {t}
             </span>
           ))}
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-2 mt-auto pt-1">
+        <div className="flex gap-1.5 mt-auto pt-0.5">
           <span
-            className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl text-[9px] font-black tracking-widest transition-all duration-300"
+            className="flex-1 flex items-center justify-center gap-0.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[7px] sm:text-[9px] font-black tracking-widest transition-all duration-300"
             style={{
               background: hovered ? project.color : "var(--secondary)",
               color: hovered ? "#000" : project.color,
               border: `1px solid ${project.color}60`,
             }}
           >
-            ACCESS_RECORD <ArrowUpRight size={9} />
+            RECORD <ArrowUpRight size={8} className="sm:inline" />
           </span>
           <span
-            className="flex items-center justify-center w-8 rounded-xl bg-secondary border border-border transition-colors"
+            className="flex items-center justify-center w-6 sm:w-8 h-6 sm:h-8 rounded-lg sm:rounded-xl bg-secondary border border-border transition-colors"
           >
-            <Github size={11} className="text-muted-foreground" />
+            <Github size={10} className="text-muted-foreground" />
           </span>
         </div>
       </div>

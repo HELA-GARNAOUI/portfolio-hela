@@ -34,7 +34,7 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-72 h-72 sm:w-96 sm:h-96 lg:w-[30rem] lg:h-[30rem] mx-auto order-first lg:order-last flex-shrink-0"
+            className="relative w-64 h-64 xs:w-72 xs:h-72 sm:w-96 sm:h-96 lg:w-[30rem] lg:h-[30rem] mx-auto order-first lg:order-last flex-shrink-0"
           >
             {/* Spinning decorative rings */}
             <div className="absolute inset-0 rounded-full border border-primary/20 animate-spin-slow" />
