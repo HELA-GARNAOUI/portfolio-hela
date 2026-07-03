@@ -11,10 +11,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Hela Garnaoui | Premium Portfolio',
-  description: 'Portfolio of Hela Garnaoui - Full Stack Developer, AI Enthusiast, and Software Engineer.',
+  title: 'Garnaoui Hela',
+  description: 'Portfolio of Garnaoui Hela - Full Stack Developer and AI Enthusiast.',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon.png', sizes: '192x192', type: 'image/png' }
+    ]
   },
 }
 

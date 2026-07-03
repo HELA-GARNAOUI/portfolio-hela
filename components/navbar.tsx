@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -56,9 +57,11 @@ export function Navbar() {
             )}
           >
             {/* Logo */}
-            <Link href="#home" className="text-xl font-bold tracking-tighter flex items-center gap-2 interactive">
-              <span className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg">H</span>
-              <span className="text-foreground">Garnaoui</span>
+            <Link href="#home" className="text-xl font-bold tracking-tighter flex items-center gap-3 interactive">
+              <div className="relative w-8 h-8 flex items-center justify-center">
+                <Image src="/icon.png" alt="Logo" fill className="object-contain" />
+              </div>
+              <span className="text-foreground">Garnaoui Hela</span>
             </Link>
 
             {/* Desktop Navigation */}
