@@ -3,37 +3,54 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Premium Dark Mode Design System for Hela Garnaoui */
+/* ── Dark Mode (default) ── */
 :root {
-  /* Enforce dark mode as the only mode */
   --background: #0B0B0B;
   --foreground: #FFFFFF;
+  --bg-mesh: rgba(11, 11, 11, 1);
   --card: rgba(255, 255, 255, 0.03);
   --card-foreground: #FFFFFF;
   --popover: rgba(11, 11, 11, 0.8);
   --popover-foreground: #FFFFFF;
-  
-  /* The Orange accent color */
   --primary: #FF6B35;
   --primary-foreground: #FFFFFF;
-  
   --secondary: rgba(255, 255, 255, 0.05);
   --secondary-foreground: #A0A0A0;
-  
   --muted: rgba(255, 255, 255, 0.1);
   --muted-foreground: #A0A0A0;
-  
   --accent: rgba(255, 107, 53, 0.15);
   --accent-foreground: #FF6B35;
-  
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.05);
   --ring: rgba(255, 107, 53, 0.5);
-  
-  --radius: 1rem; /* 16px to 30px requested, using 1rem (16px) for baseline, 1.5rem for larger */
+  --radius: 1rem;
+}
+
+/* ── Light Mode ── */
+.light, [data-theme="light"] {
+  --background: #F8F8F8;
+  --foreground: #111111;
+  --bg-mesh: rgba(248, 248, 248, 1);
+  --card: rgba(255, 255, 255, 0.75);
+  --card-foreground: #111111;
+  --popover: rgba(255, 255, 255, 0.95);
+  --popover-foreground: #111111;
+  --primary: #FF6B35;
+  --primary-foreground: #FFFFFF;
+  --secondary: rgba(0, 0, 0, 0.04);
+  --secondary-foreground: #555555;
+  --muted: rgba(0, 0, 0, 0.06);
+  --muted-foreground: #666666;
+  --accent: rgba(255, 107, 53, 0.08);
+  --accent-foreground: #FF6B35;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.04);
+  --ring: rgba(255, 107, 53, 0.3);
+  --radius: 1rem;
 }
 
 @theme inline {
@@ -69,11 +86,10 @@
   }
   html {
     scroll-behavior: smooth;
-    /* Force dark color scheme */
-    color-scheme: dark;
   }
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden selection:bg-primary/30 selection:text-white;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
@@ -86,6 +102,12 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
+.light .glass {
+  background: rgba(255, 255, 255, 0.60);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+}
+
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
@@ -93,6 +115,12 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   @apply rounded-2xl relative overflow-hidden transition-all duration-300;
+}
+
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
 }
 
 .glass-card::before {
@@ -161,3 +189,61 @@ html.lenis, html.lenis body {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+/* ── Light Mode Color Overrides to Fix Text Visibility ── */
+.light {
+  color-scheme: light;
+}
+
+.light .text-white {
+  color: var(--foreground) !important;
+}
+
+.light .text-white\/90 {
+  color: rgba(17, 17, 17, 0.9) !important;
+}
+
+.light .text-white\/80,
+.light .text-white\/70,
+.light .text-muted-foreground {
+  color: rgba(17, 17, 17, 0.7) !important;
+}
+
+.light .text-white\/50,
+.light .text-white\/45,
+.light .text-white\/40,
+.light .text-white\/35 {
+  color: rgba(17, 17, 17, 0.5) !important;
+}
+
+.light .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.light .border-white\/10,
+.light .border-border\/50,
+.light .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.light svg.text-white,
+.light svg[stroke="white"],
+.light .text-white svg {
+  color: var(--foreground) !important;
+  stroke: var(--foreground) !important;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #F8F8F8;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.light .bg-secondary\/50 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+

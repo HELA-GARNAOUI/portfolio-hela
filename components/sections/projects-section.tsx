@@ -1,177 +1,251 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ArrowUpRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
-import { GlassCard } from "@/components/ui/glass-card";
+import { projects } from "@/lib/projects-data";
 
-const projects = [
-  {
-    title: "AI CV Matching",
-    category: "AI",
-    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=800&auto=format&fit=crop",
-    desc: "An intelligent platform that uses NLP to match candidates' resumes with job descriptions accurately.",
-    tech: ["Python", "TensorFlow", "React", "FastAPI"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "Management Dashboard",
-    category: "Backend",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
-    desc: "A comprehensive management system customized for small to medium businesses.",
-    tech: ["Node.js", "Python", "PostgreSQL", "Next.js"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "SkillBridge",
-    category: "Web",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
-    desc: "A marketplace connecting mentors and mentees based on specific skill requirements.",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "Love Connect",
-    category: "Web",
-    image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop",
-    desc: "A modern dating application with real-time chat and advanced matching algorithms.",
-    tech: ["React Native", "Node.js", "Socket.io", "Firebase"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "Rainify",
-    category: "IoT",
-    image: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=800&auto=format&fit=crop",
-    desc: "Smart weather and irrigation system using IoT sensors and machine learning predictions.",
-    tech: ["ESP32", "C++", "Python", "React"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "TweetClone",
-    category: "Web",
-    image: "https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=800&auto=format&fit=crop",
-    desc: "A fully functional microblogging platform mimicking Twitter's core functionalities.",
-    tech: ["Next.js", "Prisma", "PostgreSQL", "Tailwind"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "DigiFlow Agency",
-    category: "Web",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-    desc: "A premium landing page for a digital marketing agency with smooth scroll and animations.",
-    tech: ["React", "Framer Motion", "GSAP"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "Portfolio Website",
-    category: "Web",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop",
-    desc: "A luxurious, award-winning personal portfolio website featuring glassmorphism and Framer Motion.",
-    tech: ["Next.js", "Tailwind", "Framer Motion"],
-    github: "#",
-    demo: "#"
-  }
-];
 
-const categories = ["All", "AI", "Web", "Backend", "IoT"];
+
+const N = projects.length;
+const CARD_W = 210;
+const CARD_H = 430;
+const RADIUS = Math.round((CARD_W * N) / (2 * Math.PI)) + 100; // ≈ 450px
+const SPEED = 360 / 36000; // full rotation in 36 seconds (deg/ms)
 
 export function ProjectsSection() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [paused, setPaused] = useState(false);
+  const pausedRef = useRef(false);
+  const angleRef = useRef(0);
+  const lastTsRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
 
-  const filteredProjects = projects.filter(
-    (project) => activeCategory === "All" || project.category === activeCategory
-  );
+  // DOM refs for direct style manipulation (no re-renders)
+  const ringRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>(Array(N).fill(null));
+
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
+
+  useEffect(() => {
+    const tick = (ts: number) => {
+      if (lastTsRef.current === null) lastTsRef.current = ts;
+      const dt = ts - lastTsRef.current;
+      lastTsRef.current = ts;
+
+      if (!pausedRef.current) {
+        angleRef.current = (angleRef.current + SPEED * dt) % 360;
+      }
+
+      const a = angleRef.current;
+
+      // Rotate the ring
+      if (ringRef.current) {
+        ringRef.current.style.transform =
+          `translateX(-50%) translateY(-50%) rotateY(${a}deg)`;
+      }
+
+      // Counter-rotate each card so it always faces the viewer
+      cardRefs.current.forEach((el, i) => {
+        if (el) {
+          const base = (360 / N) * i;
+          // Exact inverse of ring + slot rotation keeps card face-on
+          el.style.transform = `rotateY(${-(a + base)}deg)`;
+        }
+      });
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <Section id="projects" title="Featured Projects" subtitle="My recent work">
-      {/* Filter Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setActiveCategory(category)}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 interactive ${
-              activeCategory === category
-                ? "bg-primary text-white shadow-[0_0_15px_rgba(255,107,53,0.4)]"
-                : "glass text-muted-foreground hover:text-white"
-            }`}
+      {/* 3-D Circular Carousel */}
+      <div
+        className="relative mx-auto overflow-visible"
+        style={{ height: CARD_H + 140 }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* Perspective wrapper */}
+        <div
+          className="absolute inset-0"
+          style={{ perspective: 1200, perspectiveOrigin: "50% 45%" }}
+        >
+          {/* Rotating ring — positioned at center */}
+          <div
+            ref={ringRef}
+            className="absolute left-1/2 top-1/2"
+            style={{
+              width: 0,
+              height: 0,
+              transformStyle: "preserve-3d",
+              transform: "translateX(-50%) translateY(-50%) rotateY(0deg)",
+            }}
           >
-            {category}
-          </button>
-        ))}
+            {projects.map((project, i) => {
+              const slotAngle = (360 / N) * i;
+              return (
+                /* Card slot — places the card on the circle */
+                <div
+                  key={project.id}
+                  style={{
+                    position: "absolute",
+                    width: CARD_W,
+                    height: CARD_H,
+                    left: -CARD_W / 2,
+                    top: -CARD_H / 2,
+                    transformStyle: "preserve-3d",
+                    transform: `rotateY(${slotAngle}deg) translateZ(${RADIUS}px)`,
+                  }}
+                >
+                  {/* Counter-rotation wrapper — keeps card face-on */}
+                  <div
+                    ref={(el) => { cardRefs.current[i] = el; }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      transformStyle: "preserve-3d",
+                      transform: `rotateY(${-slotAngle}deg)`,
+                    }}
+                  >
+                    <PhoneCard project={project} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Ground glow */}
+        <div
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
+          style={{
+            width: RADIUS * 2 + CARD_W,
+            height: 50,
+            background:
+              "radial-gradient(ellipse, rgba(255,107,53,0.14) 0%, transparent 70%)",
+          }}
+        />
+
+        {/* Pause pill */}
+        {paused && (
+          <div className="absolute top-4 right-6 z-30 pointer-events-none glass px-3 py-1 rounded-full text-xs font-mono text-primary border border-primary/30">
+            ⏸ PAUSED
+          </div>
+        )}
+      </div>
+    </Section>
+  );
+}
+
+/* ─── Phone-style project card ─── */
+function PhoneCard({ project }: { project: (typeof projects)[0] }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <Link
+      href={`/projects/${project.id}`}
+      className="w-full h-full flex flex-col rounded-[2rem] overflow-hidden border-2 cursor-pointer no-underline"
+      style={{
+        background: "var(--card)",
+        backdropFilter: "blur(12px)",
+        borderColor: hovered ? project.color : "var(--border)",
+        boxShadow: hovered
+          ? `0 0 40px ${project.color}44, 0 24px 60px rgba(0,0,0,0.15)`
+          : "0 10px 40px rgba(0,0,0,0.05)",
+        transform: hovered ? "scale(1.05) translateY(-8px)" : "scale(1)",
+        transition: "all 0.35s cubic-bezier(0.34,1.56,0.64,1)",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Notch bar */}
+      <div className="relative flex-shrink-0 h-6 flex items-center justify-center">
+        <div className="w-14 h-1 bg-foreground/10 rounded-full" />
       </div>
 
-      {/* Projects Grid */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <AnimatePresence mode="popLayout">
-          {filteredProjects.map((project) => (
-            <motion.div
-              key={project.title}
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4 }}
-            >
-              <GlassCard hoverEffect className="p-0 overflow-hidden group flex flex-col h-full">
-                {/* Project Image */}
-                <div className="relative w-full aspect-video overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-background/50 group-hover:bg-transparent transition-colors duration-500"></div>
-                  
-                  {/* Hover Actions */}
-                  <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-background/40 backdrop-blur-sm">
-                    <a href={project.github} className="w-12 h-12 rounded-full glass flex items-center justify-center text-white hover:text-primary transition-colors interactive">
-                      <Github size={20} />
-                    </a>
-                    <a href={project.demo} className="w-12 h-12 rounded-full glass flex items-center justify-center text-white hover:text-primary transition-colors interactive">
-                      <ExternalLink size={20} />
-                    </a>
-                  </div>
-                </div>
+      {/* Screenshot */}
+      <div className="relative flex-shrink-0" style={{ height: 175 }}>
+        <Image src={project.image} alt={project.title} fill className="object-cover" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to bottom, ${project.color}15 0%, var(--background) 100%)`,
+          }}
+        />
+        <span
+          className="absolute top-4 left-3 text-[9px] font-black px-2 py-0.5 rounded-full z-10"
+          style={{ background: project.color, color: "#000" }}
+        >
+          {project.category}
+        </span>
+      </div>
 
-                {/* Project Details */}
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-                    <span className="text-xs font-semibold px-2 py-1 bg-white/5 rounded text-white/70">
-                      {project.category}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground text-sm mb-6 flex-grow">
-                    {project.desc}
-                  </p>
-                  
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {project.tech.map((tech) => (
-                      <span key={tech} className="text-xs text-muted-foreground bg-black/20 px-2 py-1 rounded">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </GlassCard>
-            </motion.div>
+      {/* Body */}
+      <div className="flex flex-col flex-1 p-4 gap-2">
+        {/* ID + Type */}
+        <div className="flex items-center justify-between">
+          <span
+            className="text-[9px] font-bold tracking-widest border px-2 py-0.5 rounded-full"
+            style={{ color: project.color, borderColor: `${project.color}50` }}
+          >
+          {project.badge}
+          </span>
+          <span className="text-[8px] text-muted-foreground tracking-wider font-mono">
+            TYPE // {project.type}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3
+          className="text-sm font-black italic uppercase leading-tight transition-colors duration-300"
+          style={{ color: hovered ? project.color : "var(--foreground)" }}
+        >
+          {project.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-[10px] text-muted-foreground leading-relaxed line-clamp-2 flex-1">
+          {project.desc}
+        </p>
+
+        {/* Tech tags */}
+        <div className="flex flex-wrap gap-1">
+          {project.tech.slice(0, 3).map((t) => (
+            <span key={t} className="text-[8px] px-1.5 py-0.5 rounded bg-secondary text-muted-foreground border border-border font-mono">
+              {t}
+            </span>
           ))}
-        </AnimatePresence>
-      </motion.div>
-    </Section>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex gap-2 mt-auto pt-1">
+          <span
+            className="flex-1 flex items-center justify-center gap-1 py-2 rounded-xl text-[9px] font-black tracking-widest transition-all duration-300"
+            style={{
+              background: hovered ? project.color : "var(--secondary)",
+              color: hovered ? "#000" : project.color,
+              border: `1px solid ${project.color}60`,
+            }}
+          >
+            ACCESS_RECORD <ArrowUpRight size={9} />
+          </span>
+          <span
+            className="flex items-center justify-center w-8 rounded-xl bg-secondary border border-border transition-colors"
+          >
+            <Github size={11} className="text-muted-foreground" />
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }

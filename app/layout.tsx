@@ -24,12 +24,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased overflow-x-hidden relative bg-background text-foreground`}>
         <Providers>
           <MouseFollower />
           {/* Animated Background Mesh */}
-          <div className="fixed inset-0 z-[-2] min-h-screen w-full bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(255,107,53,0.15),rgba(11,11,11,1))]"></div>
+          <div className="fixed inset-0 z-[-2] min-h-screen w-full bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(255,107,53,0.12),var(--bg-mesh))]"></div>
           {children}
           <Analytics />
         </Providers>

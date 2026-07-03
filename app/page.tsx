@@ -7,7 +7,6 @@ import { EducationSection } from "@/components/sections/education-section";
 import { ExperienceSection } from "@/components/sections/experience-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { CertificationsSection } from "@/components/sections/certifications-section";
-import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { Footer } from "@/components/footer";
 
@@ -21,12 +20,11 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <SkillsSection />
+        <ProjectsSection />
         <ServicesSection />
         <EducationSection />
         <ExperienceSection />
-        <ProjectsSection />
         <CertificationsSection />
-        <TestimonialsSection />
         <ContactSection />
       </div>
 

@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -21,8 +22,11 @@ const navItems = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -54,30 +58,54 @@ export function Navbar() {
             {/* Logo */}
             <Link href="#home" className="text-xl font-bold tracking-tighter flex items-center gap-2 interactive">
               <span className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-lg">H</span>
-              <span>Garnaoui</span>
+              <span className="text-foreground">Garnaoui</span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-white transition-colors interactive relative group"
-                >
-                  {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-              ))}
-            </nav>
+            <div className="hidden md:flex items-center gap-8">
+              <nav className="flex items-center gap-8">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors interactive relative group"
+                  >
+                    {item.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                ))}
+              </nav>
 
-            {/* Mobile Menu Toggle */}
-            <button
-              className="md:hidden text-white interactive"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+              {/* Theme Toggle Button */}
+              {mounted && (
+                <button
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="p-2 rounded-full border border-border bg-secondary hover:bg-muted text-foreground transition-all duration-300 interactive"
+                  aria-label="Toggle theme"
+                >
+                  {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+                </button>
+              )}
+            </div>
+
+            {/* Mobile Header Buttons */}
+            <div className="flex items-center gap-4 md:hidden">
+              {mounted && (
+                <button
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="p-2 rounded-full border border-border bg-secondary text-foreground transition-all duration-300 interactive"
+                  aria-label="Toggle theme"
+                >
+                  {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+                </button>
+              )}
+              <button
+                className="text-foreground interactive"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.header>
