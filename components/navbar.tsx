@@ -47,18 +47,18 @@ export function Navbar() {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
       >
-        <div className="container mx-auto px-4 sm:px-6 md:px-12">
+        <div className="container mx-auto w-full px-2 xs:px-4 sm:px-6 md:px-12">
           <div
             className={cn(
               "flex items-center justify-between rounded-full transition-all duration-500",
               scrolled
-                ? "bg-background/70 backdrop-blur-md border border-border px-4 py-2 sm:px-6 sm:py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+                ? "bg-background/70 backdrop-blur-md border border-border px-3 py-2 sm:px-6 sm:py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
                 : "bg-transparent px-0 py-0"
             )}
           >
             {/* Logo */}
-            <Link href="#home" className="text-sm xs:text-base sm:text-xl font-bold tracking-tighter flex items-center gap-2 sm:gap-3 interactive whitespace-nowrap shrink-0">
-              <div className="relative w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
+            <Link href="#home" className="text-[13px] xs:text-sm sm:text-xl font-bold tracking-tighter flex items-center gap-1.5 xs:gap-2 sm:gap-3 interactive whitespace-nowrap shrink-0">
+              <div className="relative w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
                 <Image src="/icon.png" alt="Logo" fill className="object-contain" />
               </div>
               <span className="text-foreground">Garnaoui Hela</span>
