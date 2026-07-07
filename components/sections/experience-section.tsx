@@ -7,17 +7,24 @@ import { GlassCard } from "@/components/ui/glass-card";
 const experiences = [
   {
     type: "Internship",
-    title: "Software Engineer Intern",
-    company: "Tech Innovators Inc.",
-    date: "Jun 2023 - Sep 2023",
-    description: "Developed and maintained full-stack web applications using React and Node.js. Integrated AI APIs to enhance user experience.",
+    title: "Full Stack Developer Intern",
+    company: "Neural Bey",
+    date: "2024",
+    description: "Worked as a Full Stack Developer intern, building and maintaining scalable web applications using modern frameworks. Contributed to both frontend and backend features across multiple projects.",
   },
   {
-    type: "Freelance",
-    title: "Full Stack Developer",
-    company: "Upwork & Local Clients",
-    date: "Jan 2023 - Present",
-    description: "Delivering custom backend solutions and modern web applications for various small to medium businesses.",
+    type: "Internship",
+    title: "Full Stack Developer Intern",
+    company: "MaherDev",
+    date: "2025",
+    description: "Developed full-stack web solutions, collaborating closely with the product team to deliver responsive, performant applications. Gained hands-on experience with REST APIs, database design, and CI/CD pipelines.",
+  },
+  {
+    type: "Internship",
+    title: "Full Stack Developer Intern",
+    company: "Celestial Wave Digital",
+    date: "2026",
+    description: "Focused on building immersive, interactive web experiences with a strong emphasis on Three.js and WebGL. Created 3D visualizations, animations, and real-time graphics integrated into full-stack applications.",
   },
   {
     type: "Competition",
@@ -32,13 +39,6 @@ const experiences = [
     company: "JCI Startup Challenge",
     date: "Mar 2023",
     description: "Pitched a scalable tech business plan focused on AI-driven market analysis and secured seed funding.",
-  },
-  {
-    type: "Academic",
-    title: "Senior Capstone Project",
-    company: "University",
-    date: "Sep 2023 - May 2024",
-    description: "Developed a comprehensive management system customized for educational institutions, utilizing Next.js and PostgreSQL.",
   },
 ];
 

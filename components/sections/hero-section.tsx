@@ -85,15 +85,6 @@ export function HeroSection() {
 
           {/* ── Text Content — mobile: second, desktop: left ── */}
           <div className="flex flex-col items-center lg:items-start space-y-6 text-center lg:text-left order-last lg:order-first">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="glass px-4 py-2 rounded-full inline-flex items-center gap-2 border border-primary/30 text-sm font-medium"
-            >
-              <span className="text-xl">👋</span> Hello, I&apos;m
-            </motion.div>
-
             <div className="space-y-3">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter">
                 <AnimatedText text="Hela Garnaoui" animation="reveal" />
