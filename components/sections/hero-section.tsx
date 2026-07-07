@@ -51,6 +51,7 @@ export function HeroSection() {
                 src="/profile.png"
                 alt="Hela Garnaoui"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover object-center"
                 priority
               />
@@ -123,7 +124,7 @@ export function HeroSection() {
                   View Projects <ArrowRight size={18} />
                 </MagneticButton>
               </a>
-              <a href="/cv.pdf" download>
+              <a href="/Hela%20Garnaoui%20CV%20FR.pdf" download="Hela Garnaoui CV.pdf">
                 <MagneticButton variant="secondary">
                   Download CV <Download size={18} />
                 </MagneticButton>

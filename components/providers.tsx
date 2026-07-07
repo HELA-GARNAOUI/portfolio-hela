@@ -1,30 +1,36 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
 import { ThemeProvider } from "next-themes";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
+    let lenis: any;
+    let reqId: number;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    (async () => {
+      const { default: Lenis } = await import("lenis");
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+      });
 
-    requestAnimationFrame(raf);
+      function raf(time: number) {
+        lenis.raf(time);
+        reqId = requestAnimationFrame(raf);
+      }
+
+      reqId = requestAnimationFrame(raf);
+    })();
 
     return () => {
-      lenis.destroy();
+      if (reqId) cancelAnimationFrame(reqId);
+      if (lenis) lenis.destroy();
     };
   }, []);
 

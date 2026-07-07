@@ -1,14 +1,16 @@
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/sections/hero-section";
-import { AboutSection } from "@/components/sections/about-section";
-import { SkillsSection } from "@/components/sections/skills-section";
-import { ServicesSection } from "@/components/sections/services-section";
-import { EducationSection } from "@/components/sections/education-section";
-import { ExperienceSection } from "@/components/sections/experience-section";
-import { ProjectsSection } from "@/components/sections/projects-section";
-import { CertificationsSection } from "@/components/sections/certifications-section";
-import { ContactSection } from "@/components/sections/contact-section";
-import { Footer } from "@/components/footer";
+import dynamic from "next/dynamic";
+
+const AboutSection = dynamic(() => import("@/components/sections/about-section").then(mod => mod.AboutSection));
+const SkillsSection = dynamic(() => import("@/components/sections/skills-section").then(mod => mod.SkillsSection));
+const ServicesSection = dynamic(() => import("@/components/sections/services-section").then(mod => mod.ServicesSection));
+const EducationSection = dynamic(() => import("@/components/sections/education-section").then(mod => mod.EducationSection));
+const ExperienceSection = dynamic(() => import("@/components/sections/experience-section").then(mod => mod.ExperienceSection));
+const ProjectsSection = dynamic(() => import("@/components/sections/projects-section").then(mod => mod.ProjectsSection));
+const CertificationsSection = dynamic(() => import("@/components/sections/certifications-section").then(mod => mod.CertificationsSection));
+const ContactSection = dynamic(() => import("@/components/sections/contact-section").then(mod => mod.ContactSection));
+const Footer = dynamic(() => import("@/components/footer").then(mod => mod.Footer));
 
 export default function Home() {
   return (

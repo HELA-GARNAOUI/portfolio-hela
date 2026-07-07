@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { motion, useSpring } from "framer-motion";
 
 export function MouseFollower() {
+  const [mounted, setMounted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -39,6 +41,8 @@ export function MouseFollower() {
   const springConfig = { damping: 25, stiffness: 150, mass: 0.5 };
   const cursorX = useSpring(mousePosition.x, springConfig);
   const cursorY = useSpring(mousePosition.y, springConfig);
+
+  if (!mounted) return null;
 
   return (
     <>

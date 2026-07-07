@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
-      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden relative bg-background text-foreground`}>
+      <body suppressHydrationWarning className={`${inter.variable} font-sans antialiased overflow-x-hidden relative bg-background text-foreground`}>
         <Providers>
           <MouseFollower />
           {/* Animated Background Mesh */}

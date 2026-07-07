@@ -57,25 +57,25 @@ export function Navbar() {
             )}
           >
             {/* Logo */}
-            <Link href="#home" className="text-[13px] xs:text-sm sm:text-xl font-bold tracking-tighter flex items-center gap-1.5 xs:gap-2 sm:gap-3 interactive whitespace-nowrap shrink-0">
+            <a href="#home" className="text-[13px] xs:text-sm sm:text-xl font-bold tracking-tighter flex items-center gap-1.5 xs:gap-2 sm:gap-3 interactive whitespace-nowrap shrink-0">
               <div className="relative w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
                 <Image src="/icon.png" alt="Logo" fill className="object-contain" />
               </div>
               <span className="text-foreground">Garnaoui Hela</span>
-            </Link>
+            </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <nav className="flex items-center gap-8">
                 {navItems.map((item) => (
-                  <Link
+                  <a
                     key={item.name}
                     href={item.href}
                     className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors interactive relative group"
                   >
                     {item.name}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                  </Link>
+                  </a>
                 ))}
               </nav>
 
@@ -125,14 +125,14 @@ export function Navbar() {
           >
             <nav className="flex flex-col items-center gap-6">
               {navItems.map((item) => (
-                <Link
+                <a
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-2xl font-medium text-white hover:text-primary transition-colors interactive"
                 >
                   {item.name}
-                </Link>
+                </a>
               ))}
             </nav>
           </motion.div>
