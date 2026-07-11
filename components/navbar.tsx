@@ -59,7 +59,7 @@ export function Navbar() {
             {/* Logo */}
             <a href="#home" className="text-[13px] xs:text-sm sm:text-xl font-bold tracking-tighter flex items-center gap-1.5 xs:gap-2 sm:gap-3 interactive whitespace-nowrap shrink-0">
               <div className="relative w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
-                <Image src="/icon.png" alt="Logo" fill className="object-contain" />
+                <Image src="/logo.svg" alt="Logo" fill className="object-contain" />
               </div>
               <span className="text-foreground">Garnaoui Hela</span>
             </a>

@@ -1,0 +1,21 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(30, 45)">
+    <!-- Left Pillar -->
+    <!-- Orange right face -->
+    <polygon points="40,0 55,20 55,110 40,90" fill="#f97316" />
+    <!-- Dark Blue front face -->
+    <polygon points="0,20 40,0 40,90 0,110" fill="#0f172a" />
+    
+    <!-- Right Pillar -->
+    <!-- Dark Blue left face -->
+    <polygon points="90,20 105,0 105,90 90,110" fill="#0f172a" />
+    <!-- Orange front face -->
+    <polygon points="105,0 145,20 145,110 105,90" fill="#f97316" />
+
+    <!-- Crossbar -->
+    <!-- Orange bottom face -->
+    <polygon points="40,65 105,35 105,50 40,80" fill="#f97316" />
+    <!-- Dark Blue front face -->
+    <polygon points="40,50 105,20 105,35 40,65" fill="#0f172a" />
+  </g>
+</svg>

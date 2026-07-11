@@ -15,9 +15,7 @@ export const metadata: Metadata = {
   description: 'Portfolio of Garnaoui Hela - Full Stack Developer and AI Enthusiast.',
   icons: {
     icon: [
-      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icon.png', sizes: '96x96', type: 'image/png' },
-      { url: '/icon.png', sizes: '192x192', type: 'image/png' }
+      { url: '/logo.svg', sizes: 'any', type: 'image/svg+xml' }
     ]
   },
 }
@@ -31,13 +29,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
       <body suppressHydrationWarning className={`${inter.variable} font-sans antialiased overflow-x-hidden relative bg-background text-foreground`}>
         <Providers>
-          <MouseFollower />
-          {/* Animated Background Mesh */}
-          <div className="fixed inset-0 z-[-2] min-h-screen w-full bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(255,107,53,0.12),var(--bg-mesh))]"></div>
-          <main className="flex flex-col min-h-screen w-full overflow-x-hidden">
-            {children}
-          </main>
-          <Analytics />
+          <div className="relative flex flex-col min-h-screen w-full">
+            <MouseFollower />
+            {/* Animated Background Mesh */}
+            <div className="fixed inset-0 z-[-2] min-h-screen w-full bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(255,107,53,0.12),var(--bg-mesh))]"></div>
+            <main className="flex flex-col flex-1 w-full overflow-x-hidden">
+              {children}
+            </main>
+            <Analytics />
+          </div>
         </Providers>
       </body>
     </html>

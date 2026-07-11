@@ -1,9 +1,35 @@
 export const projects = [
   {
+    id: "tunify-travel",
+    badge: "P-09",
+    title: "Tunify Travel",
+    category: "Web",
+    type: "WEB APP",
+    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200&auto=format&fit=crop",
+    color: "#4A90E2",
+    github: "#",
+    demo: "#",
+    desc: "An innovative travel platform that won 1st place at JCI in 2026.",
+    fullDesc: `Tunify Travel is an award-winning travel platform that took the top prize at JCI in 2026. Designed to revolutionize how people plan their journeys, the platform combines intuitive design with powerful scheduling and booking features.
+
+It provides users with tailored travel recommendations, real-time booking capabilities, and an interactive itinerary planner that ensures a seamless travel experience.`,
+    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+    features: [
+      "JCI Top 1 Winner (2026)",
+      "Interactive itinerary planner",
+      "Real-time booking system",
+      "Tailored travel recommendations",
+      "Interactive destination maps",
+    ],
+    year: "2026",
+    role: "Full Stack Developer",
+    status: "Completed",
+  },
+  {
     id: "ai-cv-matching",
     badge: "P-01",
     title: "AI CV Matching",
-    category: "AI",
+    category: "Site",
     type: "WEB APP",
     image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=1200&auto=format&fit=crop",
     color: "#FF6B35",
@@ -15,7 +41,7 @@ export const projects = [
 The platform analyses both resumes and job descriptions using advanced transformer models to extract key skills, experience levels, and domain knowledge. It then computes a compatibility score and ranks candidates intelligently.
 
 Key capabilities include multi-language resume parsing, semantic similarity matching beyond keyword search, explainable AI scores that help recruiters understand why a candidate was ranked, and real-time job alert notifications for candidates.`,
-    tech: ["Python", "TensorFlow", "React", "FastAPI", "PostgreSQL", "Docker", "Hugging Face"],
+    tech: ["React", "Flask", "Python", "TensorFlow", "PostgreSQL"],
     features: [
       "NLP-powered resume parsing",
       "Semantic job-candidate matching",
@@ -24,38 +50,37 @@ Key capabilities include multi-language resume parsing, semantic similarity matc
       "Multi-language support",
       "RESTful API integration",
     ],
-    year: "2024",
+    year: "2025",
     role: "Full Stack Developer & AI Engineer",
     status: "Completed",
   },
   {
-    id: "management-dashboard",
+    id: "snap-compta",
     badge: "P-02",
-    title: "Management Dashboard",
-    category: "Backend",
-    type: "DASHBOARD",
+    title: "Snap Compta",
+    category: "Logiciel",
+    type: "LOGICIEL",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
     color: "#6C63FF",
     github: "#",
     demo: "#",
-    desc: "A comprehensive management system customized for small to medium businesses.",
-    fullDesc: `A feature-rich business management dashboard designed to streamline operations for small to medium-sized enterprises. It consolidates all key business metrics into a single, intuitive interface.
+    desc: "An intelligent accounting software utilizing Machine Learning and MLOps.",
+    fullDesc: `Snap Compta is an advanced accounting software designed to automate and streamline financial operations using Machine Learning models.
 
-The system covers inventory management, sales tracking, employee management, financial reporting, and customer relationship management (CRM). It supports role-based access control so different team members see only what they need.
+The system processes financial documents and transactions intelligently, leveraging MLOps pipelines to ensure models are continuously trained and deployed efficiently.
 
-Built with performance in mind, it handles thousands of records with real-time filtering, export to PDF/Excel, and automated email reports.`,
-    tech: ["Node.js", "Python", "PostgreSQL", "Next.js", "TypeScript", "Redis", "Docker"],
+Built with a modern Next.js frontend and containerized with Docker, it offers a robust, scalable, and intelligent solution for modern accounting needs.`,
+    tech: ["Next.js", "ML", "MLOps", "Docker", "Python"],
     features: [
-      "Real-time analytics & KPIs",
-      "Inventory & sales tracking",
-      "Role-based access control",
-      "Financial reporting",
-      "CRM module",
-      "PDF & Excel export",
+      "Machine Learning document processing",
+      "Continuous MLOps pipelines",
+      "Real-time analytics",
+      "Automated financial reporting",
+      "Scalable containerized architecture",
     ],
-    year: "2024",
-    role: "Full Stack Developer",
-    status: "Completed",
+    year: "2026",
+    role: "Full Stack ML Developer",
+    status: "Not completed",
   },
   {
     id: "skillbridge",
@@ -73,7 +98,7 @@ Built with performance in mind, it handles thousands of records with real-time f
 The platform uses a smart matching algorithm that considers skill gaps, learning goals, mentor availability, and past session ratings. Mentors can set their own rates, availability, and session formats (video call, async feedback, or project-based).
 
 Integrated payment processing, calendar syncing, and a real-time messaging system make the entire experience seamless from discovery to session completion.`,
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "Stripe", "Socket.io", "Cloudinary"],
+    tech: ["Next.js", "Django", "TypeScript", "Tailwind CSS", "PostgreSQL"],
     features: [
       "Smart mentor-mentee matching",
       "Real-time messaging",
@@ -82,9 +107,9 @@ Integrated payment processing, calendar syncing, and a real-time messaging syste
       "Rating & review system",
       "Skill progress tracking",
     ],
-    year: "2023",
+    year: "2026",
     role: "Full Stack Developer",
-    status: "Completed",
+    status: "Not completed",
   },
   {
     id: "love-connect",
@@ -102,7 +127,7 @@ Integrated payment processing, calendar syncing, and a real-time messaging syste
 Unlike typical swipe-based apps, Love Connect uses a personality quiz and behavioural analysis to suggest compatible partners. Real-time chat with read receipts, voice messages, and a built-in icebreaker question system make starting conversations less intimidating.
 
 Privacy and safety are top priorities: all profiles are verified, photos are moderated by AI, and users can report and block at any time.`,
-    tech: ["React Native", "Node.js", "Socket.io", "Firebase", "MongoDB", "TensorFlow Lite"],
+    tech: ["React Native", "Django", "Python", "Socket.io", "PostgreSQL", "TensorFlow Lite"],
     features: [
       "Personality-based matching",
       "Real-time chat & voice messages",
@@ -113,25 +138,25 @@ Privacy and safety are top priorities: all profiles are verified, photos are mod
     ],
     year: "2023",
     role: "Full Stack Mobile Developer",
-    status: "Completed",
+    status: "Not completed",
   },
   {
     id: "rainify",
     badge: "P-05",
     title: "Rainify",
     category: "IoT",
-    type: "IOT SYSTEM",
+    type: "APPLICATION",
     image: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=1200&auto=format&fit=crop",
     color: "#00B4D8",
     github: "#",
     demo: "#",
-    desc: "Smart weather and irrigation system using IoT sensors and machine learning predictions.",
-    fullDesc: `Rainify is an intelligent agricultural IoT system that automates irrigation based on real-time soil moisture data, weather forecasts, and machine learning predictions.
+    desc: "Smart weather and irrigation application with an IoT system using machine learning predictions.",
+    fullDesc: `Rainify is an intelligent agricultural application with an IoT system that automates irrigation based on real-time soil moisture data, weather forecasts, and machine learning predictions.
 
 Sensors embedded in the field collect temperature, humidity, and soil moisture readings every 15 minutes and transmit them via MQTT to a central server. A trained ML model predicts the optimal irrigation schedule for the next 48 hours, factoring in local weather API data.
 
 Farmers can monitor their fields remotely via a mobile dashboard, receive alerts for abnormal readings, and override automated decisions manually.`,
-    tech: ["ESP32", "C++", "Python", "React", "MQTT", "scikit-learn", "FastAPI"],
+    tech: ["ESP32", "C++", "Python", "React", "Flask", "MQTT", "scikit-learn"],
     features: [
       "Real-time soil & weather sensors",
       "ML-powered irrigation prediction",
@@ -140,7 +165,7 @@ Farmers can monitor their fields remotely via a mobile dashboard, receive alerts
       "SMS & push alerts",
       "Manual override controls",
     ],
-    year: "2023",
+    year: "2025",
     role: "IoT & Full Stack Developer",
     status: "Completed",
   },
@@ -160,7 +185,7 @@ Farmers can monitor their fields remotely via a mobile dashboard, receive alerts
 Users can post tweets, reply, retweet, and like. A real-time feed powered by WebSockets ensures new posts appear instantly without a page refresh. The explore page features trending topics computed from hashtag frequency analysis.
 
 Includes full authentication with OAuth (Google & GitHub), infinite scroll, image uploads, dark/light mode, and a notification system.`,
-    tech: ["Next.js", "Prisma", "PostgreSQL", "Tailwind CSS", "NextAuth", "Cloudinary", "WebSockets"],
+    tech: ["Django", "Python", "PostgreSQL", "Tailwind CSS", "Cloudinary", "WebSockets"],
     features: [
       "Real-time feed with WebSockets",
       "OAuth authentication",
@@ -169,9 +194,9 @@ Includes full authentication with OAuth (Google & GitHub), infinite scroll, imag
       "Infinite scroll",
       "Full notification system",
     ],
-    year: "2023",
+    year: "2024",
     role: "Full Stack Developer",
-    status: "Completed",
+    status: "Not completed",
   },
   {
     id: "digiflow-agency",
@@ -183,23 +208,23 @@ Includes full authentication with OAuth (Google & GitHub), infinite scroll, imag
     color: "#F72585",
     github: "#",
     demo: "#",
-    desc: "A premium landing page for a digital marketing agency with smooth scroll and animations.",
-    fullDesc: `DigiFlow is a premium, award-winning landing page built for a digital marketing agency. Every section was crafted with pixel-perfect attention to detail, smooth animations, and conversion in mind.
+    desc: "A premium landing page and portal for a digital marketing agency with an AI-powered RAG system.",
+    fullDesc: `DigiFlow is a premium, award-winning platform built for a digital marketing agency. Beyond pixel-perfect attention to detail and smooth animations, it integrates advanced AI capabilities.
 
-The page features a full-screen hero with a particle background, animated statistics counters, a smooth-scroll service showcase, client testimonials carousel, and an animated contact form.
+The platform features an intelligent AI assistant powered by a Retrieval-Augmented Generation (RAG) system, allowing clients to query agency reports and marketing insights seamlessly.
 
-GSAP ScrollTrigger powers the scroll-based animations while Framer Motion handles micro-interactions. The site achieves a 98+ Lighthouse performance score despite its rich visual effects.`,
-    tech: ["React", "Framer Motion", "GSAP", "Tailwind CSS", "EmailJS"],
+GSAP ScrollTrigger powers the scroll-based animations while Framer Motion handles micro-interactions, all built on a robust Next.js and Django architecture.`,
+    tech: ["Next.js", "Django", "Python", "RAG", "Tailwind CSS", "Framer Motion"],
     features: [
+      "AI integration with RAG system",
+      "Interactive marketing assistant",
       "Particle hero background",
       "GSAP ScrollTrigger animations",
-      "Animated statistics counters",
       "Testimonials carousel",
       "Animated contact form",
-      "98+ Lighthouse score",
     ],
-    year: "2024",
-    role: "Frontend Developer",
+    year: "2025",
+    role: "Full Stack AI Developer",
     status: "Completed",
   },
   {
