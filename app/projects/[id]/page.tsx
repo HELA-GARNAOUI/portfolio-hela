@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Github, ExternalLink, CheckCircle2, Calendar, User, Tag } from "lucide-react";
 import { projects } from "@/lib/projects-data";
+import { ProjectGallery } from "@/components/project-gallery";
 
 export async function generateStaticParams() {
   return projects.map((p) => ({ id: p.id }));
@@ -163,6 +164,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
             ))}
           </div>
         </div>
+
+        {/* Demo Video */}
+        {/* @ts-ignore - 'video' property may not be defined in Project type yet */}
+        {project.video && (
+          <div>
+            <h2 className="text-2xl font-black mb-6" style={{ color: project.color }}>
+              Demo Video
+            </h2>
+            <div className="relative w-full rounded-2xl overflow-hidden glass border border-white/10 shadow-xl">
+              {/* @ts-ignore */}
+              <video
+                src={project.video}
+                controls
+                className="w-full h-auto max-h-[70vh] object-contain bg-black/50"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Gallery */}
+        <ProjectGallery gallery={project.gallery || []} color={project.color} />
 
         {/* CTA buttons */}
         <div className="flex flex-wrap gap-4 pt-2">

@@ -21,6 +21,7 @@ It provides users with tailored travel recommendations, real-time booking capabi
       "Tailored travel recommendations",
       "Interactive destination maps",
     ],
+    video: "/Video Project 3.mp4",
     year: "2026",
     role: "Full Stack Developer",
     status: "Completed",
@@ -50,6 +51,11 @@ Key capabilities include multi-language resume parsing, semantic similarity matc
       "Multi-language support",
       "RESTful API integration",
     ],
+    gallery: [
+      "/CV-MATCHER.png",
+      "/CV-matcher1.png",
+      "/cv-Matcher2.png",
+    ],
     year: "2025",
     role: "Full Stack Developer & AI Engineer",
     status: "Completed",
@@ -78,6 +84,7 @@ Built with a modern Next.js frontend and containerized with Docker, it offers a 
       "Automated financial reporting",
       "Scalable containerized architecture",
     ],
+    video: "/snap-1_BGzxyuY0.mp4",
     year: "2026",
     role: "Full Stack ML Developer",
     status: "Not completed",
@@ -136,6 +143,10 @@ Privacy and safety are top priorities: all profiles are verified, photos are mod
       "Icebreaker questions",
       "Location-based discovery",
     ],
+    gallery: [
+      "/Capture d'écran 2026-06-10 232447.png",
+      "/Capture d'écran 2026-06-10 232404.png",
+    ],
     year: "2023",
     role: "Full Stack Mobile Developer",
     status: "Not completed",
@@ -164,6 +175,13 @@ Farmers can monitor their fields remotely via a mobile dashboard, receive alerts
       "Remote monitoring dashboard",
       "SMS & push alerts",
       "Manual override controls",
+    ],
+    gallery: [
+      "/r1.png",
+      "/r2.png",
+      "/r3.png",
+      "/r4.png",
+      "/r5.png",
     ],
     year: "2025",
     role: "IoT & Full Stack Developer",
@@ -199,9 +217,9 @@ Includes full authentication with OAuth (Google & GitHub), infinite scroll, imag
     status: "Not completed",
   },
   {
-    id: "digiflow-agency",
+    id: "streamix-agency",
     badge: "P-07",
-    title: "DigiFlow Agency",
+    title: "Streamix Agency",
     category: "Web",
     type: "LANDING PAGE",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
@@ -209,7 +227,7 @@ Includes full authentication with OAuth (Google & GitHub), infinite scroll, imag
     github: "#",
     demo: "#",
     desc: "A premium landing page and portal for a digital marketing agency with an AI-powered RAG system.",
-    fullDesc: `DigiFlow is a premium, award-winning platform built for a digital marketing agency. Beyond pixel-perfect attention to detail and smooth animations, it integrates advanced AI capabilities.
+    fullDesc: `Streamix Agency is a premium, award-winning platform built for a digital marketing agency. Beyond pixel-perfect attention to detail and smooth animations, it integrates advanced AI capabilities.
 
 The platform features an intelligent AI assistant powered by a Retrieval-Augmented Generation (RAG) system, allowing clients to query agency reports and marketing insights seamlessly.
 
@@ -223,6 +241,10 @@ GSAP ScrollTrigger powers the scroll-based animations while Framer Motion handle
       "Testimonials carousel",
       "Animated contact form",
     ],
+    gallery: [
+      "/streamix.png",
+    ],
+    video: "/demo1.mp4",
     year: "2025",
     role: "Full Stack AI Developer",
     status: "Completed",

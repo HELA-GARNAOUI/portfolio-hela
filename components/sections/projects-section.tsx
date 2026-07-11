@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Github, ArrowUpRight } from "lucide-react";
+import { Github, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { projects } from "@/lib/projects-data";
 
@@ -16,6 +16,7 @@ export function ProjectsSection() {
   const [paused, setPaused] = useState(false);
   const pausedRef = useRef(false);
   const angleRef = useRef(0);
+  const targetAngleRef = useRef(0);
   const lastTsRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
   
@@ -61,8 +62,12 @@ export function ProjectsSection() {
       lastTsRef.current = ts;
 
       if (!pausedRef.current) {
-        angleRef.current = (angleRef.current + SPEED * dt) % 360;
+        targetAngleRef.current += SPEED * dt;
       }
+
+      // Smoothly interpolate current angle towards the target angle
+      const diff = targetAngleRef.current - angleRef.current;
+      angleRef.current += diff * 0.08;
 
       const a = angleRef.current;
 
@@ -94,11 +99,27 @@ export function ProjectsSection() {
     <Section id="projects" title="Featured Projects" subtitle="My recent work">
       {/* 3-D Circular Carousel */}
       <div
-        className="relative mx-auto overflow-visible"
+        className="relative mx-auto overflow-visible group"
         style={{ height: dims.cardH + 80 }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
+        {/* Navigation Arrows */}
+        <button
+          onClick={() => { targetAngleRef.current -= 360 / N; }}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full glass border border-white/10 text-white/50 hover:text-primary hover:border-primary/50 transition-all opacity-0 group-hover:opacity-100 hover:scale-110 -ml-4 md:-ml-8"
+          aria-label="Previous project"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        
+        <button
+          onClick={() => { targetAngleRef.current += 360 / N; }}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full glass border border-white/10 text-white/50 hover:text-primary hover:border-primary/50 transition-all opacity-0 group-hover:opacity-100 hover:scale-110 -mr-4 md:-mr-8"
+          aria-label="Next project"
+        >
+          <ChevronRight size={24} />
+        </button>
         {/* Perspective wrapper */}
         <div
           className="absolute inset-0"
